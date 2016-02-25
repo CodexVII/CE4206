@@ -2,6 +2,8 @@
 #Lab 1
 #
 #Exercise 2
+#sys_info
+#
 #Objectives
 #   1. Learn how to access information from system variables
 #   2. Learn how to access system information from the proc file system
@@ -28,3 +30,5 @@ echo User: $USER, User ID: $UID, Hostname: $hostname, Machine Type: $machine_typ
 echo Partitions: $partition_count, Disk Space: $free_space, Percentage Used: $percentage_used;
 echo CPU model: $model_name, CPU speed: $cpu_clock, CPU cache size: $cache_size;
 echo Total memory size: $memory_size, Free memory: $mem_free;
+
+exit 0

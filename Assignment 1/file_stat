@@ -2,6 +2,7 @@
 #Lab 1
 #
 #Exercise 1
+#file_stat
 #
 #Objectives:
 #  1. Learn how to write a simple bash script program
@@ -30,4 +31,4 @@ then
     echo "WARNING: Disk space is running low," $use_perc "is used.";
 fi
 
-exit
+exit 0
