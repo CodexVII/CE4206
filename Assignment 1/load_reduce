@@ -11,17 +11,16 @@
 #Author: Ian Lodovica
 #Date: 10/2/2016
 
-proc_info=$(ps aux | tail -n +2 > count);
-proc_count=$(wc -l count | awk '{print$1}');
+#send proc information to files for later reading
+ps aux | awk '$1 != "USER" {print$1}' > names
+sort names | uniq > uniq_list
+
+proc_count=$(wc -l names | awk '{print$1}');
 busy_process=$(ps aux | sort -k 3 -r | head -2 | tail -1);
 proc_name=$(echo busy_process | awk '{print$1, $11}');
 proc_cpu_max=$(echo busy_process | awk '{print$3}');
 proc_cpu_id=$(echo busy_process | awk '{print$2}');
 round_cpu=$(echo $proc_cpu_max | sed 's/\..$//');
-
-ps aux | awk '$1 != "USER" {print$1} ' > names
-
-sort names | uniq > uniq_list
 
 echo -e "\nProcs \tUsers"
 
@@ -43,5 +42,5 @@ if(( round_cpu >= 60)); then
 fi
 
 #cleanup
-rm names uniq_list count;
+rm names uniq_list;
 exit 0
