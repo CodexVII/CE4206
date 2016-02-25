@@ -1,0 +1,45 @@
+#! /bin/bash
+#
+
+echo "---------------------------------------------------"
+echo "- Setting up dummy files for copy                 -"
+echo "---------------------------------------------------"
+dd if=/dev/zero of=dump_1 bs=1024k count=1;
+dd if=/dev/zero of=dump_2 bs=1024k count=25;
+dd if=/dev/zero of=dump_3 bs=1024k count=50;
+dd if=/dev/zero of=dump_4 bs=1024k count=75;
+dd if=/dev/zero of=dump_5 bs=1024k count=100;
+
+gcc kopy_1.c -o kopy_1
+gcc kopy_2.c -o kopy_2
+
+echo
+echo "---------------------------------------------------"
+echo "- Running copy rate speed test (1024 byte buffer) -"
+echo "---------------------------------------------------"
+for i in {1..5};
+do
+    size_b=$(ls -als | grep "ump_$i" | awk {'print$6'});
+    size_mb=$((size_b >> 20 ));
+    echo Test $i
+    echo "Size: $size_mb mB";
+    ./kopy_1 -r -s dump_$i complete_dump_$i;
+    echo
+done
+
+rm complete_dump*
+
+echo "---------------------------------------------------"
+echo "- Running copy rate speed test (4096 byte buffer) -"
+echo "---------------------------------------------------"
+for i in {1..5};
+do
+    size_b=$(ls -als | grep "ump_$i" | awk {'print$6'});
+    size_mb=$((size_b >> 20 ));
+    echo Test $i
+    echo "Size: $size_mb mB";
+    ./kopy_2 -r -s dump_$i complete_dump_$i;
+    echo
+done
+
+rm *dump*
