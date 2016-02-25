@@ -1,0 +1,29 @@
+#! /bin/bash
+#  Display number of process for each user
+#  Script name: procs_per_user       DH 3/April/07
+
+# Make list of all users to file: names
+ps aux |  awk ' $1 != "USER" {print $1} ' > names  
+
+# Make an unique of users in file: uniq_list
+sort names | uniq > uniq_list
+
+# Make simple column titles
+echo -e "\nProcs  \t Users"
+
+# Loop to read each user name and count number of entries
+
+while  read  xuser
+do
+x=$( grep "$xuser" names |  wc -l )
+echo  -e   "$x  \t $xuser" 
+done <  uniq_list
+
+# echo new line and exit
+echo  -e  "\n"
+
+# remove any temporary files
+rm   names   uniq_list
+
+
+exit 0

@@ -1,0 +1,13 @@
+USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root       895  0.0  0.0  15824  2120 tty4     Ss+  Feb16   0:00 /sbin/getty -8 38400 tty4
+root       897  0.0  0.0  15824  2092 tty5     Ss+  Feb16   0:00 /sbin/getty -8 38400 tty5
+root       903  0.0  0.0  15824  2056 tty2     Ss+  Feb16   0:00 /sbin/getty -8 38400 tty2
+root       904  0.0  0.0  15824  2180 tty3     Ss+  Feb16   0:00 /sbin/getty -8 38400 tty3
+root       907  0.0  0.0  15824  2132 tty6     Ss+  Feb16   0:00 /sbin/getty -8 38400 tty6
+root      1442  0.0  0.0  15824  2104 tty1     Ss+  Feb16   0:00 /sbin/getty -8 38400 tty1
+root      1522  0.1  1.6 572332 130588 tty7    Ssl+ Feb16   1:46 /usr/bin/X :0 -audit 0 -auth /var/lib/mdm/:0.Xauth -nolisten tcp vt7
+codexvii  2708  0.0  0.0  22664  5480 pts/1    Ss   Feb16   0:00 bash
+codexvii  6396  0.0  0.7 563004 57740 pts/1    Sl   Feb16   1:04 emacs parser1.c
+codexvii  9695  0.3  0.6 555868 52100 pts/1    Sl   09:15   0:01 emacs load_reduce
+codexvii  9716  0.9  0.6 558584 53136 pts/1    Sl   09:19   0:01 emacs abc
+codexvii  9729  0.0  0.0  18452  2632 pts/1    R+   09:21   0:00 ps au

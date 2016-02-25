@@ -1,0 +1,33 @@
+#! /bin/bash
+#Lab 1
+#
+#Exercise 1
+#
+#Objectives:
+#  1. Learn how to write a simple bash script program
+#  2. Learn how to examine basic disk information
+#
+#Author: Ian Lodovica
+#Date: 10/2/2016
+#
+
+big_file=$(ls -a -l ~ | sort -g -r -k5 | head -1);
+big_file_size=$(ls -a -l ~ | sort -g -r -k5 | head -1 | awk '{print$5}');
+big_file_name=$(ls -a -l ~ | sort -g -r -k5 | head -1 | awk '{print$9}');
+files_count=$(ls -l ~ | wc -l);
+directory_count=$(ls -l ~ | grep "^d" | wc -l);
+free_blocks=$(df . | awk '{print $4}' | tail -1);
+use_perc=$(df . | awk '{print $5}' | tail -1);
+
+echo "Largest file:" $big_file_name "with size" $big_file_size;
+echo "Files in home count:" $files_count;
+echo "Directories in home count:" $directory_count;
+echo "Free 1k blocks:" $free_blocks;
+echo "Percentage used:" $use_perc;
+
+if ((free_blocks < 5000000))
+then
+    echo "WARNING: Disk space is running low," $use_perc "is used.";
+fi
+
+exit
