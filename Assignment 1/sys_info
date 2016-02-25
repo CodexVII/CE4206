@@ -19,16 +19,17 @@ machine_type=$(arch ; uname);
 partition_count=$(df | grep "^/dev" | wc -l);
 free_space=$(df -h ~ | awk '{print $4}' | tail -1);
 percentage_used=$(df -h ~ | awk '{print $5}' | tail -1);
-model_name=$(grep "^model name" $cpuinfo_path | head -1 | cut -f3-5 -d ''); #- specified to '' or ' ' returns the same string
+model_name=$(grep "^model name" $cpuinfo_path | head -1 | cut -f3-5 -d ' ');
 cpu_clock=$(grep "^model name" $cpuinfo_path | head -1 | awk '{print $9}');
 cache_size=$(grep "^cache size" $cpuinfo_path | head -1 | awk '{print $4 $5}');
 
-mem_size=$(grep "^MemTotal" $meminfo_path | cut -f3-4 -d ''); #if -d specified to ' ' returns nothing. odd.
-mem_free=$(grep "^MemFree" $meminfo_path | cut -f3-4 -d '');
+mem_free=$(grep "^MemFree" $meminfo_path | awk '{print$2}' );
+
+mem_size=$(grep "^MemTotal" $meminfo_path | awk '{print$2}');
 
 echo User: $USER, User ID: $UID, Hostname: $hostname, Machine Type: $machine_type;
 echo Partitions: $partition_count, Disk Space: $free_space, Percentage Used: $percentage_used;
 echo CPU model: $model_name, CPU speed: $cpu_clock, CPU cache size: $cache_size;
-echo Total memory size: $memory_size, Free memory: $mem_free;
+echo Total memory size: $mem_size kB, Free memory: $mem_free kB;
 
 exit 0
