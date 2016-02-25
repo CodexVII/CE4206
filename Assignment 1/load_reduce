@@ -17,28 +17,25 @@ sort names | uniq > uniq_list
 
 proc_count=$(wc -l names | awk '{print$1}');
 busy_process=$(ps aux | sort -k 3 -r | head -2 | tail -1);
-proc_name=$(echo busy_process | awk '{print$1, $11}');
-proc_cpu_max=$(echo busy_process | awk '{print$3}');
-proc_cpu_id=$(echo busy_process | awk '{print$2}');
+proc_name=$(echo $busy_process | awk '{print$1, $11}');
+proc_cpu_max=$(echo $busy_process | awk '{print$3}');
+proc_cpu_id=$(echo $busy_process | awk '{print$2}');
 round_cpu=$(echo $proc_cpu_max | sed 's/\..$//');
 
 echo -e "\nProcs \tUsers"
-
 while read xuser
 do
     x=$(grep "$xuser" names | wc -l)
     echo -e "$x \t $xuser"
 done < uniq_list
-
-
 echo;
 
 echo Process Count: $proc_count;
 echo Busiest Process: $proc_name;
 
 if(( round_cpu >= 60)); then
-    kill proc_cpu_id;
-    echo $busy_process | awk '{print$2}'; 
+    kill $proc_cpu_id;
+    echo Killed $proc_name; #proc_name always stores the busiest proc
 fi
 
 #cleanup
