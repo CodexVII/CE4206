@@ -13,7 +13,7 @@
 echo "---------------------------------------------------"
 echo "- Setting up dummy files for copy                 -"
 echo "---------------------------------------------------"
-dd if=/dev/zero of=dump_1 bs=1024k count=1;
+dd if=/dev/zero of=dump_1 bs=1k count=1;
 dd if=/dev/zero of=dump_2 bs=1024k count=25;
 dd if=/dev/zero of=dump_3 bs=1024k count=50;
 dd if=/dev/zero of=dump_4 bs=1024k count=75;
