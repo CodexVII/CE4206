@@ -1,5 +1,14 @@
 #! /bin/bash
+#  Test cases for assignment #2
 #
+#  There are two instances of kopy here. kopy_1 and kopy_2.
+#  Both files are identical except for the buffer size used
+#  to read and write while copying.
+#  kopy_1 uses a buffer size of 1024 while kopy_2 is 4096.
+#
+#  Dummy files were created with arbitrary sizes ranging
+#  from 1mB to 100mB. The contents of these files were
+#  then copied over to a series of 'complete_dump_*' files.
 
 echo "---------------------------------------------------"
 echo "- Setting up dummy files for copy                 -"

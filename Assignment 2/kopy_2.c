@@ -2,8 +2,8 @@
 kopy.c
 An example Unix-like shell copy command/utility.
 Copies the first file to the second. Options to be defined.
-D.Heffernan
-1/April/2007 last update: 27/Sep/11 ver 0.1.1
+Author: Ian Lodovica
+Date: 25th of February 2016
 
 issues
 islower(buff[i]) not picking up lower case chars
@@ -28,7 +28,7 @@ int main (int argc, char *argv[]) {
   double start, end;  //microseconds used while calculating process time
   double copy_rate;
   double file_size;
-  char buff [1024];
+  char buff [4096];
 
   //time structs
   struct timeval startVal;
@@ -43,7 +43,7 @@ int main (int argc, char *argv[]) {
   char* fileName[2] = {} ; // Point to file names
   // Parse the command line arguments
   for ( i = 1 ; i < argc; i++ ){
-    if (argv[i][0] == '-')
+    if (argv[i][0] == '-'){
       // Check for a command option
       // Only checks for seperated options
       switch(argv[i][1]){
@@ -59,7 +59,10 @@ int main (int argc, char *argv[]) {
       default:
 	printf("Unknown modifier. Only -u -s -r modifiers allowed\n");
       }
-    else fileName[fileArg++] = argv[i];
+    }
+    else{
+      fileName[fileArg++] = argv[i];
+    }
   }
 
   // Open the first file for reading
