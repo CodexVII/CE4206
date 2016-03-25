@@ -1,0 +1,6 @@
+/* 
+   Program: console.c
+   A simple program example where a semaphore is used to lock the console
+   upon writing to it
+   
+ */
