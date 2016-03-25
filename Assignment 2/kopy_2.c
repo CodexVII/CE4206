@@ -19,18 +19,18 @@ unit conversion
 #include <sys/time.h>
 
 int main (int argc, char *argv[]) {
-  int i, j;
-  int fileArg = 0; // Count for files on command line
-  int infd, outfd; // File descriptor for input and output file
-  int num_read, num_write; // Numbers of characters returned by a file access
-  int buff_iter = 0;   //counts the amount of iterations that the buffer is used
-  double process_time = 0;  // keeps track of how much time has passed while copying
-  double start, end;  //microseconds used while calculating process time
-  double copy_rate;
-  double file_size;
-  char buff [4096];
+  int i, j;                         // i looped through params, j looped through buffer
+  int fileArg = 0;                  // Count for files on command line
+  int infd, outfd;                  // File descriptor for input and output file
+  int num_read, num_write;          // Numbers of characters returned by a file access
+  int buff_iter = 0;                // counts the amount of iterations that the buffer is used
+  double process_time = 0;          // keeps track of how much time has passed while copying
+  double start, end;                // microseconds used while calculating process time
+  double copy_rate;                 // stores the copy speed in kB/s
+  double file_size;                 // stores size in kB
+  char buff [4096];                 // sets buffer size used for copying
 
-  //time structs
+  //used to find processing time
   struct timeval startVal;
   struct timeval endVal;
 
