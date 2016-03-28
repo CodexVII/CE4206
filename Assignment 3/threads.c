@@ -26,8 +26,9 @@ sem_t mutex_A;
 
 main(){
   pthread_t thread1, thread2, thread3; /* Declare three thread IDs */
-
   int rc1, rc2, rc3;
+
+  sem_init(&mutex, 0, 1);
 
   /* Split up the console into three sections */
   printf("\033[2J");		/* Clear the screen */
@@ -64,6 +65,9 @@ main(){
   pthread_join(thread2, NULL);
   pthread_join(thread3, NULL);
 
+  /* Ready semaphore for deletion */
+  sem_destroy(&mutex);
+
   exit(0);
 }
 
@@ -75,14 +79,12 @@ main(){
 void *functionA(void *arg){
   sem_t mutex = *(sem_t*)arg;
 
-  sem_init(&mutex, 0, 1);
   while(1){
     sem_wait(&mutex);
     printf("\033[%d;%dH", 4, 0); /* Set cursor position (row 3, column 0 */
     printf("I am a function 1111111111111111111111111111111111111\n");
     sem_post(&mutex);
-  }
-  sem_destroy(&mutex);		
+  }	
   pthread_exit(NULL);		/* thread exits */
 }
 
@@ -93,8 +95,6 @@ void *functionA(void *arg){
  */
 void *functionB(void *arg){
   sem_t mutex = *(sem_t*)arg;
-    
-  sem_init(&mutex, 0, 1);
 
   while(1){
     sem_wait(&mutex);
@@ -102,7 +102,6 @@ void *functionB(void *arg){
     printf("I am a function 2222222222222222222222222222222222222\n");
     sem_post(&mutex);
   }
-  sem_destroy(&mutex);
   pthread_exit(NULL);		/* thread exits */
 }
 
@@ -113,8 +112,6 @@ void *functionB(void *arg){
  */
 void *functionC(void *arg){
   sem_t mutex = *(sem_t*)arg;
-    
-  sem_init(&mutex, 0, 1);
 
   while(1){
     sem_wait(&mutex);
@@ -122,7 +119,6 @@ void *functionC(void *arg){
     printf("I am a function 3333333333333333333333333333333333333\n");
     sem_post(&mutex);
   }
-  sem_destroy(&mutex);
   pthread_exit(NULL);		/* thread exits */
 }
 
