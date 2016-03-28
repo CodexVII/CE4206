@@ -28,7 +28,7 @@ main(){
   pthread_t thread1, thread2, thread3; /* Declare three thread IDs */
   int rc1, rc2, rc3;
 
-  sem_init(&mutex, 0, 1);
+  sem_init(&mutex_A, 0, 1);
 
   /* Split up the console into three sections */
   printf("\033[2J");		/* Clear the screen */
@@ -45,18 +45,33 @@ main(){
   printf("THREAD THREE\n");
   printf("===========================================================\n");
 
+  /* /\* Create first thread .. thread 1 *\/ */
+  /* if( rc1=pthread_create(&thread1, NULL, *functionA, (void*)&mutex_A)){ */
+  /*   printf("Error in creating thread %d\n", rc1 ); */
+  /* } */
+
+  /* /\* Create second thread .. thread 2 *\/ */
+  /* if( rc2=pthread_create(&thread2, NULL, *functionB, (void*)&mutex_A)){ */
+  /*   printf("Error in creating thread %d\n", rc2 ); */
+  /* } */
+
+  /* /\* Crate third thread .. thread 3 *\/ */
+  /* if( rc3=pthread_create(&thread3, NULL, *functionC, (void*)&mutex_A)){ */
+  /*   printf("Error in creating thread %d\n", rc3 ); */
+  /* } */
+
   /* Create first thread .. thread 1 */
-  if( rc1=pthread_create(&thread1, NULL, *functionA, (void*)&mutex_A)){
+  if( rc1=pthread_create(&thread1, NULL, *functionA, NULL)){
     printf("Error in creating thread %d\n", rc1 );
   }
 
   /* Create second thread .. thread 2 */
-  if( rc2=pthread_create(&thread2, NULL, *functionB, (void*)&mutex_A)){
+  if( rc2=pthread_create(&thread2, NULL, *functionB, NULL)){
     printf("Error in creating thread %d\n", rc2 );
   }
 
   /* Crate third thread .. thread 3 */
-  if( rc3=pthread_create(&thread3, NULL, *functionC, (void*)&mutex_A)){
+  if( rc3=pthread_create(&thread3, NULL, *functionC, NULL)){
     printf("Error in creating thread %d\n", rc3 );
   }
 
@@ -66,7 +81,7 @@ main(){
   pthread_join(thread3, NULL);
 
   /* Ready semaphore for deletion */
-  sem_destroy(&mutex);
+  sem_destroy(&mutex_A);
 
   exit(0);
 }
@@ -77,13 +92,13 @@ main(){
    and the message to be printed out on the new cursor position.
  */
 void *functionA(void *arg){
-  sem_t mutex = *(sem_t*)arg;
-
+  /* sem_t mutex = *(sem_t*)arg; */
+  
   while(1){
-    sem_wait(&mutex);
+    sem_wait(&mutex_A);
     printf("\033[%d;%dH", 4, 0); /* Set cursor position (row 3, column 0 */
     printf("I am a function 1111111111111111111111111111111111111\n");
-    sem_post(&mutex);
+    sem_post(&mutex_A);
   }	
   pthread_exit(NULL);		/* thread exits */
 }
@@ -94,13 +109,13 @@ void *functionA(void *arg){
    and the message to be printed out on the new cursor position.
  */
 void *functionB(void *arg){
-  sem_t mutex = *(sem_t*)arg;
+  /* sem_t mutex = *(sem_t*)arg; */
 
   while(1){
-    sem_wait(&mutex);
+    sem_wait(&mutex_A);
     printf("\033[%d;%dH", 11, 0); /* Set cursor position (row 3, column 0 */
     printf("I am a function 2222222222222222222222222222222222222\n");
-    sem_post(&mutex);
+    sem_post(&mutex_A);
   }
   pthread_exit(NULL);		/* thread exits */
 }
@@ -111,13 +126,13 @@ void *functionB(void *arg){
    and the message to be printed out on the new cursor position.
  */
 void *functionC(void *arg){
-  sem_t mutex = *(sem_t*)arg;
+  /* sem_t mutex = *(sem_t*)arg; */
 
   while(1){
-    sem_wait(&mutex);
+    sem_wait(&mutex_A);
     printf("\033[%d;%dH", 19, 0); /* Set cursor position (row 3, column 0 */
     printf("I am a function 3333333333333333333333333333333333333\n");
-    sem_post(&mutex);
+    sem_post(&mutex_A);
   }
   pthread_exit(NULL);		/* thread exits */
 }
