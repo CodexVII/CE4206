@@ -21,10 +21,12 @@ void *functionA();
 void *functionB();
 void *functionC();
 
+sem_t mutex_A;
+
 
 main(){
   pthread_t thread1, thread2, thread3; /* Declare three thread IDs */
-  sem_t mutex_A;
+
   int rc1, rc2, rc3;
 
   /* Split up the console into three sections */
