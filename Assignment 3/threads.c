@@ -17,9 +17,9 @@
 #include <pthread.h>
 
 /* Function declarations */
-void *functionA();
-void *functionB();
-void *functionC();
+void *functionA(void);
+void *functionB(void);
+void *functionC(void);
 
 sem_t mutex_A;
 
@@ -44,21 +44,6 @@ main(){
   printf("\033[%d;%dH", 16, 0);
   printf("THREAD THREE\n");
   printf("===========================================================\n");
-
-  /* /\* Create first thread .. thread 1 *\/ */
-  /* if( rc1=pthread_create(&thread1, NULL, *functionA, (void*)&mutex_A)){ */
-  /*   printf("Error in creating thread %d\n", rc1 ); */
-  /* } */
-
-  /* /\* Create second thread .. thread 2 *\/ */
-  /* if( rc2=pthread_create(&thread2, NULL, *functionB, (void*)&mutex_A)){ */
-  /*   printf("Error in creating thread %d\n", rc2 ); */
-  /* } */
-
-  /* /\* Crate third thread .. thread 3 *\/ */
-  /* if( rc3=pthread_create(&thread3, NULL, *functionC, (void*)&mutex_A)){ */
-  /*   printf("Error in creating thread %d\n", rc3 ); */
-  /* } */
 
   /* Create first thread .. thread 1 */
   if( rc1=pthread_create(&thread1, NULL, *functionA, NULL)){
@@ -91,9 +76,7 @@ main(){
    In this case the cursor is guaranteed to be set up correctectly
    and the message to be printed out on the new cursor position.
  */
-void *functionA(void *arg){
-  /* sem_t mutex = *(sem_t*)arg; */
-  
+void *functionA(void){
   while(1){
     sem_wait(&mutex_A);
     printf("\033[%d;%dH", 4, 0); /* Set cursor position (row 3, column 0 */
@@ -108,9 +91,7 @@ void *functionA(void *arg){
    In this case the cursor is guaranteed to be set up correctectly
    and the message to be printed out on the new cursor position.
  */
-void *functionB(void *arg){
-  /* sem_t mutex = *(sem_t*)arg; */
-
+void *functionB(void){
   while(1){
     sem_wait(&mutex_A);
     printf("\033[%d;%dH", 11, 0); /* Set cursor position (row 3, column 0 */
@@ -125,9 +106,7 @@ void *functionB(void *arg){
    In this case the cursor is guaranteed to be set up correctectly
    and the message to be printed out on the new cursor position.
  */
-void *functionC(void *arg){
-  /* sem_t mutex = *(sem_t*)arg; */
-
+void *functionC(void){
   while(1){
     sem_wait(&mutex_A);
     printf("\033[%d;%dH", 19, 0); /* Set cursor position (row 3, column 0 */
