@@ -17,9 +17,9 @@
 #include <pthread.h>
 
 /* Function declarations */
-void *functionA(void);
-void *functionB(void);
-void *functionC(void);
+void *functionA();
+void *functionB();
+void *functionC();
 
 sem_t mutex_A;
 
@@ -46,17 +46,17 @@ main(){
   printf("===========================================================\n");
 
   /* Create first thread .. thread 1 */
-  if( rc1=pthread_create(&thread1, NULL, *functionA, NULL)){
+  if( rc1=pthread_create(&thread1, NULL, &functionA, NULL)){
     printf("Error in creating thread %d\n", rc1 );
   }
 
   /* Create second thread .. thread 2 */
-  if( rc2=pthread_create(&thread2, NULL, *functionB, NULL)){
+  if( rc2=pthread_create(&thread2, NULL, &functionB, NULL)){
     printf("Error in creating thread %d\n", rc2 );
   }
 
   /* Crate third thread .. thread 3 */
-  if( rc3=pthread_create(&thread3, NULL, *functionC, NULL)){
+  if( rc3=pthread_create(&thread3, NULL, &functionC, NULL)){
     printf("Error in creating thread %d\n", rc3 );
   }
 
@@ -76,7 +76,7 @@ main(){
    In this case the cursor is guaranteed to be set up correctectly
    and the message to be printed out on the new cursor position.
  */
-void *functionA(void){
+void *functionA(){
   while(1){
     sem_wait(&mutex_A);
     printf("\033[%d;%dH", 4, 0); /* Set cursor position (row 3, column 0 */
@@ -91,7 +91,7 @@ void *functionA(void){
    In this case the cursor is guaranteed to be set up correctectly
    and the message to be printed out on the new cursor position.
  */
-void *functionB(void){
+void *functionB(){
   while(1){
     sem_wait(&mutex_A);
     printf("\033[%d;%dH", 11, 0); /* Set cursor position (row 3, column 0 */
@@ -106,7 +106,7 @@ void *functionB(void){
    In this case the cursor is guaranteed to be set up correctectly
    and the message to be printed out on the new cursor position.
  */
-void *functionC(void){
+void *functionC(){
   while(1){
     sem_wait(&mutex_A);
     printf("\033[%d;%dH", 19, 0); /* Set cursor position (row 3, column 0 */

@@ -1,0 +1,6 @@
+/* 
+   Program: simpleConVar.c
+   Shows the use of a POSIX Condition Variable as an introductory
+   example. Only Thread 1 can display the condition where the counter's
+   value is divisible by 3.
+ */

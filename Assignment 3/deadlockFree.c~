@@ -1,0 +1,6 @@
+/* 
+   Program: deadockFree.c
+   A simple threaded program to demonstrate the deadlock condition.
+   Two threads are used to wait on two MUTEXES. Careful ordering of locks
+   should prevent deadlock.
+ */
