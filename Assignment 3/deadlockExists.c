@@ -57,7 +57,7 @@ int main(){
 /* Thread 1 */
 void *functionA(){
   int x = 0;			/* used to iter through while loop */
-  while(x < 5){
+  while(1){
     pthread_mutex_lock(&mutex1);
     printf("I'm T1, just locked mutex1\n");
     pthread_mutex_lock(&mutex2);
@@ -67,10 +67,10 @@ void *functionA(){
     var_B++;
     printf("I am Thread1: var_A = %d, var_B = %d\n", var_A, var_B);
     
-    pthread_mutex_unlock(&mutex2);
-    printf("I'm T1, just freed mutex2\n");
     pthread_mutex_unlock(&mutex1);
     printf("I'm T1, just freed mutex1\n");
+    pthread_mutex_unlock(&mutex2);
+    printf("I'm T1, just freed mutex2\n");
     
     x++;
   }
@@ -81,7 +81,7 @@ void *functionA(){
 /* Thread 2 */
 void *functionB(){
   int x = 0;			/* used to iter through while loop */
-  while(x < 5){
+  while(1){
     pthread_mutex_lock(&mutex1);
     printf("I'm T2, just locked mutex1\n");
     pthread_mutex_lock(&mutex2);
@@ -91,10 +91,10 @@ void *functionB(){
     var_B++;
     printf("I am Thread2: var_A = %d, var_B = %d\n", var_A, var_B);
     
-    pthread_mutex_unlock(&mutex2);
-    printf("I'm T2, just freed mutex2\n");
     pthread_mutex_unlock(&mutex1);
     printf("I'm T2, just freed mutex1\n");
+    pthread_mutex_unlock(&mutex2);
+    printf("I'm T2, just freed mutex2\n");
     
     x++;
   }

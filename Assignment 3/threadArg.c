@@ -1,5 +1,9 @@
 /* 
    Program: threadArg.c
+   Demonstrates how an argument can be passed to a thread upon creation
+
+   Author: Ian Lodovica
+   Date: 5th of April 2016
  */
 
 #include <stdio.h>

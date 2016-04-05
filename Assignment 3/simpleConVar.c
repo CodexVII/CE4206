@@ -9,6 +9,9 @@
 	 a signal there is no need to increment it
 	 Checks were added to initial IF statement if the number was
 	 divisible by 3
+
+   Author: Ian Lodovica (13131567)
+   Date: 5th of April 2016
  */
 
 #include <stdio.h>
@@ -28,7 +31,7 @@ pthread_cond_t con_var1 = PTHREAD_COND_INITIALIZER;
 pthread_cond_t con_var2 = PTHREAD_COND_INITIALIZER;
 
 /* Global definitions and a variable */
-#define TOP_LIMIT 17
+#define TOP_LIMIT 18
 int counter = 1;
 
 /* MAIN */
@@ -58,7 +61,7 @@ int main(){
 
 /* Thread 1 */
 void *functionA(){
-  while(counter <= 15){
+  while(counter < TOP_LIMIT){
     pthread_mutex_lock(&mutex1); /* Lock mutex1 */
     
     /* Check the value of counter and if it is not divisible by 3

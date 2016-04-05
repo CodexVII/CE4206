@@ -1,14 +1,14 @@
 /*
-  Program: threads.c
+  Program: threads_2.c
   A simple threaded program example where each one of three threads carefully writes to
   a defined secion of the console. This example shows corruption on the screen, which
-  could be fixed using a semaphore based solution.
-
-  Can be fixed by doing the following:
-  Escape characters are used to clear the screen and to set cursor positions.
+  could be fixed using a mutex solution.
 
   Notes:
     compiled with gcc -pthreads -o threads -threads.c
+  
+  Author: Ian Lodovica (13131567)
+  Date: 5th of April 2016
  */
 
 #include <stdio.h>
