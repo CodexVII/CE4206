@@ -7,6 +7,8 @@
    Note: Counter increments had to be carefully placed. A counter should
          only be implemented if the value was displayed. If only sending
 	 a signal there is no need to increment it
+	 Checks were added to initial IF statement if the number was
+	 divisible by 3
  */
 
 #include <stdio.h>
