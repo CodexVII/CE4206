@@ -4,10 +4,8 @@
    Two threads are used to wait on two MUTEXES. Careful ordering of locks
    should prevent deadlock. Try this and see does deadlock occur.
 
-   Note: Having swapped the lock/unlocking order in Thread 2 to unlock
-         first and then lock created a deadlock scenario. This is due to
-	 the mutex never being unlocked once Thread 2 finishes which causes
-	 it to wait forever.
+   Author: Ian Lodovica (13131567)
+   Date: 5th of April 2016
  */
 
 #include <stdio.h>
@@ -82,19 +80,19 @@ void *functionA(){
 void *functionB(){
   int x = 0;			/* used to iter through while loop */
   while(1){
-    pthread_mutex_lock(&mutex1);
-    printf("I'm T2, just locked mutex1\n");
     pthread_mutex_lock(&mutex2);
     printf("I'm T2, just locked mutex2\n");
+    pthread_mutex_lock(&mutex1);
+    printf("I'm T2, just locked mutex1\n");
     
     var_A++;
     var_B++;
     printf("I am Thread2: var_A = %d, var_B = %d\n", var_A, var_B);
     
-    pthread_mutex_unlock(&mutex1);
-    printf("I'm T2, just freed mutex1\n");
     pthread_mutex_unlock(&mutex2);
     printf("I'm T2, just freed mutex2\n");
+    pthread_mutex_unlock(&mutex1);
+    printf("I'm T2, just freed mutex1\n");
     
     x++;
   }

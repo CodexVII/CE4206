@@ -5,7 +5,7 @@
   could be fixed using a semaphore based solution.
 
   Notes:
-    compiled with gcc -pthreads -o threads -threads.c
+    compiled with gcc -pthreads -o threads_1 -threads_1.c
   
   Author: Ian Lodovica (13131567)
   Date: 5th of April 2016
