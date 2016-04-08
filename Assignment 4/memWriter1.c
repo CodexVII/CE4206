@@ -1,5 +1,5 @@
 /***********************************************************************
-Program: memWriter.c
+Program: memWriter1.c
 
 A simple example on shared memory.
 Create/open a shared memory object, map to that object and write to it. Unlink object.
@@ -8,7 +8,8 @@ Works as normal even if mmcpy() is replaced with write() however
 the fd had to be written into with the message before being mapped into
 the process
 
-Donal Heffernan 6/November/2014     Updated 22/October/2015
+Author: Ian Lodovica (13131567)
+Date: 8th of April 2016
 ************************************************************************/
 #include <stdlib.h>
 #include <stdio.h>
@@ -19,7 +20,7 @@ Donal Heffernan 6/November/2014     Updated 22/October/2015
 #include <sys/stat.h>
 #include <string.h>
 
-#define SHARED_OBJ_PATH  "don1337"  // pathname to shared object       
+#define SHARED_OBJ_PATH  "Acting" // pathname to shared object       
 #define MESSAGE_SIZE      100     // maximum length the message 
 
 char message[MESSAGE_SIZE] = "Hello World";
@@ -52,13 +53,14 @@ int main() {
   }
     
   printf("Shared memory is now allocated %d bytes\n", seg_size);
-
-  /* memcpy(shared_msg, "University of Limerick", 30); //put something onto the memory */
   
   printf("Message content is: %s\n\n Hit any key to finish!\n", shared_msg) ;
   getchar() ; // wait for user to hit any key
    
-  shm_unlink(SHARED_OBJ_PATH) ;  // unlink - better to add error check
+  // house keeping
+  munmap(shared_msg, seg_size);
+  close(mfd);
+  shm_unlink(SHARED_OBJ_PATH);
 
   return 0 ;
 } 

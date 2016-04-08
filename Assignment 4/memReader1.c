@@ -1,9 +1,12 @@
 /***********************************************************************
-Program: memReader.c
+Program: memReader1.c
 
 Open a shared a shared memory object, map to that object and read it.
 
-Donal Heffernan 6/November/2014   Updated 22/October/2015
+Attempts to write to SHM with just read access to no avail.
+
+Author: Ian Lodovica (13131567)
+Date: 8th of April 2016
 ************************************************************************/
 #include <stdlib.h>
 #include <stdio.h>
@@ -14,7 +17,7 @@ Donal Heffernan 6/November/2014   Updated 22/October/2015
 #include <sys/stat.h>
 #include <string.h>
 
-#define SHARED_OBJ_PATH   "don1337"   // pathname to shared object  
+#define SHARED_OBJ_PATH   "Acting"   // pathname to shared object  
 #define MESSAGE_SIZE      100  // maximum length the message 
 
 char message[MESSAGE_SIZE];
@@ -44,9 +47,14 @@ int main() {
     exit(1);
   }
   
-  printf("System page size is %d\n", getpagesize());
+  printf("System page size is %lu\n", sysconf(_SC_PAGESIZE));
   printf("Shared memory size allocated is %d bytes\n", seg_size);
   printf("The message content actually read is: .... %s\n", shared_msg);
     
+  // house keeping
+  munmap(shared_msg, seg_size);
+  close(mfd);
+  shm_unlink(SHARED_OBJ_PATH);
+  
   return 0;
 }
