@@ -56,8 +56,7 @@ int main() {
 }
 
 int getMessagePageSize(int msg_size){
-  int counter = 0;
-  int page_size = getpagesize();
+  int page_size = sysconf(_SC_PAGESIZE) ;
   int pages_required = msg_size/page_size;
   
   //left over (wasted) memory
@@ -66,5 +65,5 @@ int getMessagePageSize(int msg_size){
   }
 
   printf("Pages required: %d\n", pages_required);
-  return pages_required*getpagesize();
+  return pages_required*page_size;
 }
