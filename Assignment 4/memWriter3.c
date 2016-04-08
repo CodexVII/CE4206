@@ -1,17 +1,10 @@
 /***********************************************************************
-Program: memWriter.c
+Program: memWriter3.c
 
-A simple example on shared memory.
-Create/open a shared memory object, map to that object and write to it. Unlink object.
+Loading a file into the process' memory for quicker write access.
 
-Works as normal even if mmcpy() is replaced with write() however
-the fd had to be written into with the message before being mapped into
-the process
-
-Had to make sure correct page size was allocated else the shared message
-object will be corrupted
-
-Donal Heffernan 6/November/2014     Updated 22/October/2015
+Author: Ian Lodovica (13131567)
+Date: 8th of April 2016
 ************************************************************************/
 #include <stdlib.h>
 #include <stdio.h>
@@ -23,9 +16,14 @@ Donal Heffernan 6/November/2014     Updated 22/October/2015
 
 int main(int argc, char *argv[]) {
   struct stat st;
-  off_t len;
   char *pt;
   int fd;
+
+  // basic parameter check
+  if(argc != 2){
+    printf("Invalid parameters passed\n");
+    return 1;
+  }
 
   // open file for reading and writing
   fd = open(argv[1], O_RDWR);	
@@ -38,11 +36,12 @@ int main(int argc, char *argv[]) {
   pt[0] = 'Z';
 
   // print out size and i-node for file
-  printf("File size: %lu\n", st.st_size);
+  printf("File size: %lu bytes\n", st.st_size);
   printf("File i-node: %lu\n", st.st_ino);
 
+  // house keeping
+  munmap(pt, st.st_size);
   close(fd);
-  //  unlink(argv[1]);
-
+  
   return 0;
 }

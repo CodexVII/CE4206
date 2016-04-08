@@ -1,9 +1,10 @@
 /***********************************************************************
-Program: memReader.c
+Program: memReader3.c
 
-Open a shared a shared memory object, map to that object and read it.
+Load a file into the process' memory for reading.
 
-Donal Heffernan 6/November/2014   Updated 22/October/2015
+Author: Ian Lodovica (13131567)
+Date: 8th of April 2016
 ************************************************************************/
 #include <stdlib.h>
 #include <stdio.h>
@@ -14,9 +15,6 @@ Donal Heffernan 6/November/2014   Updated 22/October/2015
 #include <sys/stat.h>
 #include <string.h>
 
-#define MESSAGE_SIZE      10000  // maximum length the message 
-
-char message[MESSAGE_SIZE];
 
 int main(int argc, char *argv[]) {
   struct stat st;
@@ -24,11 +22,18 @@ int main(int argc, char *argv[]) {
   char *pt;
   int fd;
 
+  // basic parameter check
+  if(argc != 2){
+    printf("Invalid parameters passed\n");
+    return 1;
+  }
+
   // open file for reading
   fd = open(argv[1], O_RDONLY);
-
   fstat(fd, &st);
-  pt = mmap(0, st.st_size, PROT_READ, MAP_SHARED, fd, 0);
+
+  // map entire file to memory.
+  pt = mmap(0, st.st_size, PROT_READ, MAP_PRIVATE, fd, 0);
 
   //print out first few characters
   for( i=0; i<3; i++){
@@ -36,6 +41,9 @@ int main(int argc, char *argv[]) {
   }
 
   printf("\n");
+
+  // house keeping
+  munmap(pt, st.st_size);
   close(fd);
   
   return 0;

@@ -3,7 +3,8 @@ Program: memReader.c
 
 Open a shared a shared memory object, map to that object and read it.
 
-Donal Heffernan 6/November/2014   Updated 22/October/2015
+Author: Ian Lodovica (13131567)
+Date: 8th of April 2016
 ************************************************************************/
 #include <stdlib.h>
 #include <stdio.h>
@@ -14,16 +15,19 @@ Donal Heffernan 6/November/2014   Updated 22/October/2015
 #include <sys/stat.h>
 #include <string.h>
 
-#define SHARED_OBJ_PATH   "don1337"   // pathname to shared object  
+#define SHARED_OBJ_PATH   "Acting"   // pathname to shared object  
 #define MESSAGE_SIZE      10000  // maximum length the message 
 
 char message[MESSAGE_SIZE];
+
+int getMessagePageSize(int msg_size);
 
 int main() {
   int mfd;  //file descriptor for the shared object
   int seg_size = getMessagePageSize(MESSAGE_SIZE);   //shared object sized to store message 
   char *shared_msg;
   int i;   //message iterator
+  
   // open the shared memory object for reading  only  
   mfd = shm_open(SHARED_OBJ_PATH, O_RDONLY, S_IRWXU | S_IRWXG);
   if (mfd < 0) {
@@ -52,6 +56,11 @@ int main() {
   
   printf("\nShared memory size allocated is %d bytes\n", seg_size);
     
+  // house cleaning
+  munmap(shared_msg, seg_size);
+  close(mfd);
+  shm_unlink(SHARED_OBJ_PATH);
+
   return 0;
 }
 

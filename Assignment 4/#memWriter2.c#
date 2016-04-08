@@ -20,7 +20,6 @@ Date: 8th of April 2016
 #define MESSAGE_SIZE      10000     // maximum length the message 
 
 char message[MESSAGE_SIZE];
-
 int getMessagePageSize(int msg_size);
 
 int main() {
