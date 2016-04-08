@@ -78,5 +78,5 @@ int getMessagePageSize(int msg_size){
   }
 
   printf("Pages required: %d\n", pages_required);
-  return pages_required*getpagesize();
+  return pages_required*page_size;
 }
