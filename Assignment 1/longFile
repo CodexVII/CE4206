@@ -1,0 +1,9 @@
+-rw-r--r-- 1 codexvii codexvii 12526 Feb 25 16:58 Lab1.odt
+-rw-r--r-- 1 codexvii codexvii  1204 Feb 25 16:58 sys_info
+-rw-r--r-- 1 codexvii codexvii  1035 Feb 25 18:22 load_reduce
+-rw-r--r-- 1 codexvii codexvii   884 Feb 25 16:58 file_stat
+-rw-r--r-- 1 codexvii codexvii   600 Feb 25 16:58 procs_per_user
+-rwxr-xr-x 1 codexvii codexvii    45 Feb 25 18:16 busy
+-rw-r--r-- 1 codexvii codexvii    13 Feb 25 18:16 busy~
+-rw-r--r-- 1 codexvii codexvii     0 May  9 14:04 longFile
+total 40
